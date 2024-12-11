@@ -1,4 +1,4 @@
-package org.project.academy;
+package org.project.academy.entity;
 
 
 import jakarta.persistence.*;
