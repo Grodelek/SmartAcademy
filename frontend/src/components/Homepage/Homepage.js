@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const Homepage = () => {
-    const [setData] = useState(null);
-    const [setError] = useState(null);
+    const [data, setData] = useState(null);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         axios.get('http://localhost:8080/')
