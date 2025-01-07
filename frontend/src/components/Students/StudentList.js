@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import NavbarComponent from '../NavbarComponent';
 import axios from "axios";
 
 const StudentList = () => {
@@ -11,16 +12,26 @@ const StudentList = () => {
     }, []);
 
     return (
-        <div className={"centered"}>
-            <h1>Students</h1>
-            <ul>
-                {students.map(student => (
-                    <li key={student.id}>
-                        {student.name} - {student.email}
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <>
+            <nav>
+                <NavbarComponent />
+            </nav>
+            <div className="centered">
+                <h1>Students</h1>
+                {students.length > 0 ? (
+                    <ul>
+                        {students.map(student => (
+                            <li key={student.id}>
+                                {student.name} - {student.surname} - {student.index} - {student.age}
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p>No students available.</p>
+                )}
+            </div>
+        </>
     );
 };
+
 export default StudentList;

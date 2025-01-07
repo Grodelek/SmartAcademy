@@ -1,9 +1,6 @@
 package org.project.academy.entity;
 
-
 import jakarta.persistence.*;
-
-
 
 @Entity
 @Table(name="students")
@@ -13,15 +10,21 @@ public class Student {
     private Long id;
     @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "email", nullable = false)
-    private String email;
-
-    public Student(String name, String email) {
-        this.name = name;
-        this.email = email;
-    }
+    @Column(name = "surname", nullable = false)
+    private String surname;
+    @Column(name = "index_number", nullable = false)
+    private int index;
+    @Column(name = "age", nullable = false)
+    private int age;
 
     public Student() {
+    }
+
+    public Student(String name, String surname, int index, int age) {
+        this.name = name;
+        this.surname = surname;
+        this.index = index;
+        this.age = age;
     }
 
     public String getName() {
@@ -32,19 +35,27 @@ public class Student {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    public Long getId() {
-        return id;
+    public int getIndex() {
+        return index;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 }

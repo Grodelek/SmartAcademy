@@ -17,36 +17,3 @@ body{
   padding: 1em;
   position: relative;
 }
-.burger-menu{
-  height: 100%;
-  width: 4em;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  cursor: pointer;
-
-}
-.burger-bar{
-  background-color: whitesmoke;
-  margin-top: 0.6em;
-  width: 3em;
-  height: 0.5em;
-  border-radius: 0.5em;
-}
-.navbar-item {
-  font-size: 18px;
-  margin-left: 20px;
-  cursor: pointer;
-  transition: color 0.3s ease;
-  text-decoration: none;
-  color: inherit;
-}
-.navbar-item:hover {
-  color: #f1c40f;
-}
-.navbar .navbar-item {
-  margin-left: 20px;
-}
-.navbar .navbar-right {
-  margin-left: auto;
-}
