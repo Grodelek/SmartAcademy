@@ -1,6 +1,6 @@
 package org.project.academy.service;
 
-import org.project.academy.entity.Student;
+import org.project.academy.model.Student;
 import org.project.academy.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

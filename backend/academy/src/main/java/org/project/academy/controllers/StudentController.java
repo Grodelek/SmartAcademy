@@ -1,7 +1,7 @@
 package org.project.academy.controllers;
 
 import org.project.academy.service.StudentService;
-import org.project.academy.entity.Student;
+import org.project.academy.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
