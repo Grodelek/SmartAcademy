@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserController {
-    private UserService userService;
-    private BCryptPasswordEncoder bCryptEncoder = new BCryptPasswordEncoder(12);
+    private final UserService userService;
+    private final BCryptPasswordEncoder bCryptEncoder = new BCryptPasswordEncoder(12);
 
     @Autowired
     public UserController(UserService userService) {
@@ -24,5 +24,10 @@ public class UserController {
         user.setPassword(bCryptEncoder.encode(user.getPassword()));
         user.setRoles("USER");
         return userService.register(user);
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody User user){
+        return userService.verify(user);
     }
 }
