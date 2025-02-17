@@ -6,7 +6,7 @@ const StudentList = () => {
     const [students, setStudents] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/students')
+        axios.get('http://localhost:8080/api/students')
             .then(response => setStudents(response.data))
             .catch(error => console.error('Error fetching data:', error));
     }, []);
