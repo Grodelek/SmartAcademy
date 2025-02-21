@@ -73,3 +73,8 @@ npm install
 npm start
   ```
 Access the frontend at http://localhost:3000.
+5.Go to
+```
+http://localhost:8080/swagger-ui/index.html
+```
+for Swagger UI endpoints
