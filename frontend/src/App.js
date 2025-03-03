@@ -3,7 +3,10 @@ import StudentList from "./components/Students/StudentList";
 import { BrowserRouter as Router, Route, Routes } from 'react-router';
 import Home from "./pages/Home";
 import Login from "./components/Login/Login"
+import {AuthContext, AuthProvider} from "./components/Login/AuthContext";
+import {useContext} from "react";
 function App() {
+    const { isAuthenticated, login, logout } = useContext(AuthContext);
   return (
       <Router>
           <Routes>
@@ -15,4 +18,8 @@ function App() {
   );
 }
 
-export default App;
+export default () => (
+    <AuthProvider>
+        <App />
+    </AuthProvider>
+);
