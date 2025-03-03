@@ -1,24 +1,42 @@
-import React, { useState } from 'react';
-import {useNavigate} from "react-router";
+import React, { useState } from "react";
 import axios from "axios";
+import {useNavigate} from "react-router";
 
-const Login = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
+const Login = ({ onLogin }) => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const navigate = useNavigate(); // Utwórz funkcję do nawigacji
 
-    const handleLogin = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError("");
+
         try {
-            const response = await axios.post('http://localhost:8080/login', {
-                username,
-                password
+            const response = await fetch("http://localhost:8080/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ username, password }),
             });
-            alert("Login successfully");
-            navigate("/")
+
+            if (!response.ok) {
+                const errorText = await response.text(); // Pobierz treść błędu
+                throw new Error(`Błąd ${response.status}: ${errorText}`);
+            }
+
+            const token = await response.text();
+
+            if (token) {
+                localStorage.setItem("token", token);
+                localStorage.setItem("username", username);
+                navigate("/");
+            } else {
+                throw new Error("Brak tokena w odpowiedzi serwera");
+            }
         } catch (err) {
-            setError('Invalid username or password');
-            console.error('Error logging in:', err);
+            setError(err.message);
         }
     };
 
@@ -64,7 +82,7 @@ const Login = () => {
                         <button
                             className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                             type="button"
-                            onClick={handleLogin}>
+                            onClick={handleSubmit}>
                             Login
                         </button>
                     </div>
