@@ -14,7 +14,7 @@ const Login = ({ onLogin }) => {
         setError("");
 
         try {
-            const response = await fetch("http://localhost:8080/login", {
+            const response = await fetch("http://localhost:8080/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -23,29 +23,20 @@ const Login = ({ onLogin }) => {
             });
 
             if (!response.ok) {
-                const errorText = await response.text(); // Pobierz treść błędu
+                const errorText = await response.text();
                 throw new Error(`Błąd ${response.status}: ${errorText}`);
             }
-
-            const token = await response.text();
-
-            if (token) {
-                localStorage.setItem("token", token);
-                localStorage.setItem("username", username);
-                navigate("/");
-            } else {
-                throw new Error("Brak tokena w odpowiedzi serwera");
+            navigate("/login");
+            } catch (err) {
+                setError(err.message);
             }
-        } catch (err) {
-            setError(err.message);
-        }
     };
 
     return (
         <div className="centered content center">
             <div className="flex justify-center items-center m-8">
             <span className="text-blue-500 font-bold md:text-4xl">
-                Please, log in
+                Create new Account
             </span>
             </div>
             <form className="w-full max-w-sm" onSubmit={(e) => e.preventDefault()}>
@@ -82,7 +73,7 @@ const Login = ({ onLogin }) => {
                     </div>
                 </div>
                 {error && <p className="text-red-500 text-xs italic text-center">{error}</p>}
-                <a href={"/register"} className="text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4 hover:text-white-500">No account? Register here</a>
+                <a href={"/login"} className="text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4 hover:text-white-500">Already have an account? Log in here</a>
                 <div className="md:flex md:items-center">
                     <div className="md:w-1/3"></div>
                     <div className="md:w-2/3">

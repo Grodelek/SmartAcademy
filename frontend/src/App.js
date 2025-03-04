@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 import Login from "./components/Login/Login"
 import {AuthContext, AuthProvider} from "./components/Login/AuthContext";
 import {useContext} from "react";
+import Register from "./components/Login/Register";
+
 function App() {
     const { isAuthenticated, login, logout } = useContext(AuthContext);
   return (
@@ -13,11 +15,11 @@ function App() {
               <Route path="/" element={<Home/>}/>
               <Route path="/students" element={<StudentList/>}/>
               <Route path="/login" element={<Login/>}/>
+              <Route path="/register" element={<Register/>}/>
           </Routes>
       </Router>
   );
 }
-
 
 export default () => (
     <AuthProvider>
