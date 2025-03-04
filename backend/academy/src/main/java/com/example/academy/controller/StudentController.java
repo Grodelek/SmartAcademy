@@ -7,7 +7,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/students")
+@RequestMapping("/api")
 public class StudentController {
     private StudentService studentService;
 
@@ -16,12 +16,12 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping
+    @GetMapping("/students/all")
     public List<Student> getAllStudents() {
         return studentService.getAllStudents();
     }
 
-    @PostMapping
+    @PostMapping("/students/add")
     public Student saveStudent(@RequestBody Student student) {
         return studentService.saveStudent(student);
     }
