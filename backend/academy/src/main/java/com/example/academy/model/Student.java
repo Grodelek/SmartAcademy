@@ -8,11 +8,11 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = true)
     private String name;
     @Column(name = "surname", nullable = false)
     private String surname;
-    @Column(name = "index_number", nullable = false)
+    @Column(name = "index_number", nullable = false, unique = true)
     private int index;
     @Column(name = "age", nullable = false)
     private int age;
@@ -45,6 +45,9 @@ public class Student {
 
     public int getIndex() {
         return index;
+    }
+    public String getIndexStr(){
+        return String.valueOf(index);
     }
 
     public void setIndex(int index) {

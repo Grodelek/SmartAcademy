@@ -26,7 +26,6 @@ public class UserService {
         return user;
     }
 
-
     public String verify(User user) {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
@@ -34,7 +33,8 @@ public class UserService {
         return jwtService.generateToken(user.getUsername());
     }else{
         return "failed";
+        }
     }
-    }
+
 }
 
