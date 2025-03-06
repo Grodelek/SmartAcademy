@@ -9,7 +9,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/students")
 public class StudentController {
     private StudentService studentService;
 
@@ -18,12 +18,12 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping("/students/all")
+    @GetMapping("/all")
     public List<Student> getAllStudents() {
         return studentService.getAllStudents();
     }
 
-    @PostMapping("/students/add")
+    @PostMapping("/add")
     public ResponseEntity<?> registerStudent(@RequestBody StudentRegistrationRequest request) {
         Student student = studentService.addStudent(request);
         return ResponseEntity.ok("Student zarejestrowany pomyślnie. Możesz się teraz zalogować.");
