@@ -6,6 +6,7 @@ import Login from "./components/Login/Login"
 import {AuthContext, AuthProvider} from "./components/Login/AuthContext";
 import {useContext} from "react";
 import Register from "./components/Login/Register";
+import StudentRegisterForm from "./components/Students/StudentRegisterForm";
 
 function App() {
     const { isAuthenticated, login, logout } = useContext(AuthContext);
@@ -14,6 +15,7 @@ function App() {
           <Routes>
               <Route path="/" element={<Home/>}/>
               <Route path="/students" element={<StudentList/>}/>
+              <Route path="/students/add" element={<StudentRegisterForm/>}/>
               <Route path="/login" element={<Login/>}/>
               <Route path="/register" element={<Register/>}/>
           </Routes>

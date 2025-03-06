@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import NavbarComponent from '../NavbarComponent';
 import axios from "axios";
 import { useNavigate } from "react-router";
+import Button from "@mui/material/Button";
 
 const StudentList = () => {
     const [students, setStudents] = useState([]);
@@ -19,6 +20,7 @@ const StudentList = () => {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
+
         })
             .then(response => {
                 setStudents(response.data);
@@ -41,6 +43,12 @@ const StudentList = () => {
                 <NavbarComponent />
             </nav>
             <div className="centered">
+                <button
+                    className="shadow bg-blue-500 w-1/4 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 m-5 rounded"
+                    type="button"
+                    onClick={ () => navigate("/students/add")}>
+                    Add Student
+            </button>
                 <h1>Students</h1>
                 {loading ? (
                     <p>Loading students...</p>
