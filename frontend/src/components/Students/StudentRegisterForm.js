@@ -19,11 +19,11 @@ const StudentRegisterForm = () => {
             return;
         }
         try {
-            const response = await axios.post("http://localhost:8080/api/students/add", {
+            const response = await axios.post("http://localhost:8080/students/add", {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ name, surname, password, age }),
             });
@@ -108,9 +108,6 @@ const StudentRegisterForm = () => {
                     </div>
                 </div>
                 {error && <p className="text-red-500 text-xs italic text-center">{error}</p>}
-                <a href="/login" className="text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4 hover:text-white-500">
-                    Already have an account? Log in here
-                </a>
                 <div className="md:flex md:items-center">
                     <div className="md:w-1/3"></div>
                     <div className="md:w-2/3">

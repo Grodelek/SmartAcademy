@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
 import {useNavigate} from "react-router";
-import Typography from "@mui/material/Typography";
 
 const Login = ({ onLogin }) => {
     const [username, setUsername] = useState("");
