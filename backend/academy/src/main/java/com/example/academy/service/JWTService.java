@@ -4,6 +4,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,20 @@ import java.util.function.Function;
 
 @Service
 public class JWTService {
-    private String key = "";
+    @Value("${jwt.secret}")
+    private String key;
+
+    private SecretKey secretKey;
+
+    @PostConstruct
+    public void init() {
+        byte[] keyBytes = Decoders.BASE64.decode(key);
+        this.secretKey = Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    private SecretKey getKey(){
+        return this.secretKey;
+    }
 
     public JWTService() throws NoSuchAlgorithmException {
        try {
@@ -32,21 +47,19 @@ public class JWTService {
     public String generateToken(String username) {
         Map<String, Object> claims = new HashMap<>();
 
-        return Jwts.builder()
+        String token = Jwts.builder()
                 .claims()
                 .add(claims)
                 .subject(username)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 60 * 60 * 30))
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
                 .and()
                 .signWith(getKey())
                 .compact();
+        System.out.println("Generated token for user " + username + ": " + token);
+        return token;
     }
 
-    private SecretKey getKey(){
-        byte[] keyBytes = Decoders.BASE64.decode(key);
-     return Keys.hmacShaKeyFor(keyBytes);
-    }
 
     public String extractUserName(String token) {
         return extractClaim(token, Claims::getSubject);
