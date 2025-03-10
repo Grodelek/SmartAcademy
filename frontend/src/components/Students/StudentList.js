@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import NavbarComponent from '../NavbarComponent';
 import axios from "axios";
 import { useNavigate } from "react-router";
-import Button from "@mui/material/Button";
 
 const StudentList = () => {
     const [students, setStudents] = useState([]);
@@ -20,7 +19,6 @@ const StudentList = () => {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
-
         })
             .then(response => {
                 setStudents(response.data);
@@ -42,30 +40,65 @@ const StudentList = () => {
             <nav>
                 <NavbarComponent />
             </nav>
-            <div className="centered">
+            <div className="max-w-4xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
                 <button
-                    className="shadow bg-blue-500 w-1/4 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 m-5 rounded"
+                    className="shadow bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 mb-6 w-full rounded"
                     type="button"
-                    onClick={ () => navigate("/students/add")}>
+                    onClick={() => navigate("/students/add")}
+                >
                     Add Student
-            </button>
-                <h1>Students</h1>
+                </button>
+
+                <h1 className="text-2xl font-bold text-gray-800 mb-4">Students</h1>
+
                 {loading ? (
-                    <p>Loading students...</p>
+                    <p className="text-gray-600">Loading students...</p>
                 ) : error ? (
                     <p className="text-red-500">{error}</p>
                 ) : students.length > 0 ? (
-                    <ul>
-                        {students.map((student) => (
-                            <li key={student.id}>
-                                <p className="text-lg font-semibold text-gray-700">
-                                    {student.name} {student.surname} ({student.index})
-                                </p>
-                            </li>
-                        ))}
-                    </ul>
+                    <div className="overflow-x-auto">
+                        <table className="min-w-full border border-gray-300">
+                            <thead>
+                            <tr className="bg-gray-200">
+                                <th className="border px-4 py-2 text-left">Name</th>
+                                <th className="border px-4 py-2 text-left">Surname</th>
+                                <th className="border px-4 py-2 text-left">Index</th>
+                                <th className="border px-4 py-2 text-left"></th>
+                                <th className="border px-4 py-2 text-left"></th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {students.map((student) => (
+                                <tr key={student.id} className="hover:bg-gray-100">
+                                    <td className="border px-4 py-2">{student.name}</td>
+                                    <td className="border px-4 py-2">{student.surname}</td>
+                                    <td className="border px-4 py-2">{student.index}</td>
+                                    <td className="button px-4 py-2 ">
+                                        <button
+                                            className="shadow bg-green-500 hover:bg-green-400 text-white font-bold mt-5 py-2 px-4  w-full rounded"
+                                            type="button"
+                                            onClick={() => navigate(`/students/update/${student.id}`)}
+                                        >
+                                            Update
+                                        </button>
+                                    </td>
+                                    <td className="button px-4 py-2 ">
+                                        <button
+                                            className="shadow bg-red-500 hover:bg-red-400 text-white font-bold mt-5 py-2 px-4  w-full rounded"
+                                            type="button"
+                                            onClick={() => navigate(`/students/delete/${student.id}`)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </div>
                 ) : (
-                    <p>No students available.</p>
+                    <p className="text-gray-600">No students available.</p>
                 )}
             </div>
         </>

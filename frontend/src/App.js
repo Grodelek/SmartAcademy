@@ -1,15 +1,16 @@
 import './App.css';
 import StudentList from "./components/Students/StudentList";
-import { BrowserRouter as Router, Route, Routes } from 'react-router';
+import {BrowserRouter as Router, Route, Routes, useNavigate} from 'react-router';
 import Home from "./pages/Home";
 import Login from "./components/Login/Login"
 import {AuthContext, AuthProvider} from "./components/Login/AuthContext";
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import Register from "./components/Login/Register";
 import StudentRegisterForm from "./components/Students/StudentRegisterForm";
 
 function App() {
     const { isAuthenticated, login, logout } = useContext(AuthContext);
+
   return (
       <Router>
           <Routes>

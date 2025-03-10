@@ -27,7 +27,6 @@ const StudentRegisterForm = () => {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json",
-                        'Access-Control-Allow-Origin': '*',
                     }
                 }
             );
