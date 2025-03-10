@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class StudentService {
@@ -51,5 +53,10 @@ public class StudentService {
         userStudent.setRoles("STUDENT");
         userRepository.save(userStudent);
         return student;
+    }
+
+    public Optional<Student> getStudentById(Long id) {
+        Optional<Student> student = studentRepository.findById(id);
+        return Optional.ofNullable(student.orElseThrow(() -> new NoSuchElementException("No such Student")));
     }
 }

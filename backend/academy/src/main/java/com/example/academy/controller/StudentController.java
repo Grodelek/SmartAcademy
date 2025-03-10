@@ -3,9 +3,11 @@ import com.example.academy.model.Student;
 import com.example.academy.model.StudentRegistrationRequest;
 import com.example.academy.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/students")
@@ -26,6 +28,26 @@ public class StudentController {
     @PostMapping("/add")
     public ResponseEntity<?> registerStudent(@RequestBody StudentRegistrationRequest request) {
         Student student = studentService.addStudent(request);
-        return ResponseEntity.ok("Student zarejestrowany pomyślnie. Możesz się teraz zalogować.");
+        return ResponseEntity.ok("Student registrated successfully, you can now log in");
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Student> updateStudent(@RequestBody StudentRegistrationRequest request, @PathVariable Long id){
+        try{
+            Optional<Student> optionalStudent = studentService.getStudentById(id);
+            if(optionalStudent.isPresent()){
+                Student student = optionalStudent.get();
+                student.setName(request.getName());
+                student.setSurname(request.getSurname());
+                student.setAge(request.getAge());
+                studentService.saveStudent(student);
+                return ResponseEntity.ok(student);
+            }else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }
