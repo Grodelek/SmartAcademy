@@ -1,6 +1,7 @@
 package com.example.academy.controller;
 
 import com.example.academy.model.Student;
+import com.example.academy.model.StudentDTO;
 import com.example.academy.model.StudentRegistrationRequest;
 import com.example.academy.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class StudentController {
   }
 
   @GetMapping("/all")
-  public List<Student> getAllStudents() {
+  public List<StudentDTO> getAllStudents() {
     return studentService.getAllStudents();
   }
 
@@ -34,19 +35,10 @@ public class StudentController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Student> getStudent(@PathVariable Long id) {
-    try {
-      Optional<Student> optionalStudent = studentService.getStudentById(id);
-      if (optionalStudent.isPresent()) {
-        Student student = optionalStudent.get();
-        return ResponseEntity.ok(student);
-      } else {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-    }
+  public ResponseEntity<Student> getStudentById(@PathVariable Long id) {
+    Optional<Student> student = studentService.getStudentById(id);
+    return student.map(ResponseEntity::ok)
+            .orElseGet(() -> ResponseEntity.notFound().build());
   }
 
   @PutMapping("/update/{id}")
@@ -67,5 +59,10 @@ public class StudentController {
       e.printStackTrace();
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
+  }
+
+  @DeleteMapping("delete/{id}")
+  public ResponseEntity<?> deleteStudent(@PathVariable Long id){
+      return studentService.deleteStudent(id);
   }
 }

@@ -1,29 +1,25 @@
 package com.example.academy.model;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name="students")
-public class Student {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class StudentDTO {
     private Long id;
-    @Column(name = "name", nullable = true)
     private String name;
-    @Column(name = "surname", nullable = false)
     private String surname;
-    @Column(name = "index_number", nullable = false, unique = true)
-    private int index;
-    @Column(name = "age", nullable = false)
     private int age;
+    private int index;
 
-    public Student() {
-    }
-
-    public Student(String name, String surname, int index, int age) {
+    public StudentDTO(Long id, String name, String surname,int age, int index) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
+        this.age = age;
         this.index = index;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
         this.age = age;
     }
 
@@ -54,19 +50,8 @@ public class Student {
     public int getIndex() {
         return index;
     }
-    public String getIndexStr(){
-        return String.valueOf(index);
-    }
 
     public void setIndex(int index) {
         this.index = index;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 }
