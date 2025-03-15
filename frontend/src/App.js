@@ -7,7 +7,8 @@ import { AuthContext, AuthProvider } from "./components/Login/AuthContext";
 import { useContext, useEffect } from "react";
 import Register from "./components/Login/Register";
 import StudentRegisterForm from "./components/Students/StudentRegisterForm";
-import StudentUpdate from "./components/Students/StudentUpdate";
+import StudentUpdateForm from "./components/Students/StudentUpdate";
+import StudentDelete from "./components/Students/StudentDelete";
 function App() {
   const { isAuthenticated, login, logout } = useContext(AuthContext);
 
@@ -19,7 +20,8 @@ function App() {
         <Route path="/students/add" element={<StudentRegisterForm />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/students/update/:id" element={<StudentUpdate />} />
+          <Route path="/students/update/:id" element={<StudentUpdateForm />} />
+          <Route path="/students/delete/:id" element={<StudentDelete />} />
       </Routes>
     </Router>
   );
